@@ -1,10 +1,10 @@
 # Project Write-Up
 
-In this section, I document important detials regarding the model selection research, performance evaluation and how to deploy the 'app' including use cases and industries where applicabel.
+In this section, I document important detials regarding the model selection research, performance evaluation and how to deploy the 'app' including use cases and industries where applicable.
 
 ## Model Selection
 
-This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [models/public](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project.
+This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [public_model_zoo](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project.
 
 ## Explaining Custom Layers
 
