@@ -4,10 +4,7 @@ In this section, I document important detials regarding the model selection rese
 
 ## Model Selection
 
-This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, and for this reason I selected the model from the 'open_model_zoo/models/public' 
-
-- [model_zoo](/https://github.com/opencv/open_model_zoo/tree/master/models/public)
-
+This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, and for this reason I selected the model from the [model_zoo](/https://github.com/opencv/open_model_zoo/tree/master/models/public) in the public section.
 
 
 ## Explaining Custom Layers
