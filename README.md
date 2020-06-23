@@ -1,5 +1,7 @@
 # Deploy a People Counter App at the Edge
 
+This project used Intel OpenVino toolkit to deploy people counting application. The application demonstrates the potential of using smart video IoT solution deployed at the Edge to detect the presence of people in a video frame and calculate the average time (duration) each person spent in the video frame. This have many important applications to many sectors including retail, security etc.
+
 | Details            |              |
 |-----------------------|---------------|
 | Programming Language: |  Python 3.5 or 3.6 |
@@ -8,9 +10,11 @@
 
 ## What it Does
 
-The people counter application will demonstrate how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count.
+The people counter application demonstrate how to apply a smart video IoT solution using Intel® hardware and software tools. The app have the ability to detect people in a designated area, provides the number of people in the frame including average duration of people in a frame, and total count. Further examples of detection screenshots is shown below:
 
 ![people-counter-python](./images/Screenshot_image.png)
+
+![people-counter-python](./images/Detect_image.png)
 
 ## How it Works
 
@@ -202,3 +206,5 @@ CAMERA_FEED_SERVER: "http://localhost:3004"
 ...
 MQTT_SERVER: "ws://localhost:3002"
 ```
+## Model selection
+Details of model selection, performance evaluation and how to deploy the application is provided in the project write up folder above. 
