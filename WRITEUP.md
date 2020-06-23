@@ -14,9 +14,9 @@ SSD_MObilenet is a Single-Shot multibox Detection (SSD) network model used for o
 
 The folowing steps where taken to download the model from the public_model_zoo
 
-1. Download the model using the command: wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
+1. Download the model using the command: "wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
 
-2. Extract the tar file using: tar -xvf ssd_mobilenet_v2_coco_2018_03_29.tar.gz
+2. Extract the tar file using: "tar -xvf ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
 
 ## Converting the model into Intermediate Representation model
 
@@ -24,7 +24,7 @@ The folowing steps where taken to download the model from the public_model_zoo
 
 2. Convert the model to IR using the following command argument:
 
-python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
+"python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json"
 
 
 ## Explaining Custom Layers
