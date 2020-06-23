@@ -4,17 +4,27 @@ In this section, I document important detials regarding the model selection rese
 
 ## Model Selection
 
-This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [public_model_zoo](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project.
+This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [public_model_zoo](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project. I chose this model because it provided a good detection with regards to the number of person in the video frame per time, prediction accuracy and fast infereence time.
 
 - ssd_mobilenet_v2_coco
 
 SSD_MObilenet is a Single-Shot multibox Detection (SSD) network model used for object detection. The model input is a blob that consists of a single image of 1x3x300x300 in RGB format. This means that I have to process the model before delpoying the app. The original model input is in RGB format while converted model is in BGR format. The pre-process model also shows the number of detection boxes, channels, width and height (n, c, w, h) which is documented in the main.py.
 
-## Downloading and converting the model
+## Downloading the model
 
-The folowing steps where taken to download and convert the model to Intermediate Representation (IR)
+The folowing steps where taken to download the model from the public_model_zoo
 
+1. Download the model using the command: wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
 
+2. Extract the tar file using: tar -xvf ssd_mobilenet_v2_coco_2018_03_29.tar.gz
+
+## Converting the model into Intermediate Representation model
+
+1. cd into the extracted model folder
+
+2. Convert the model to IR using the following command argument:
+
+python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
 
 
 ## Explaining Custom Layers
