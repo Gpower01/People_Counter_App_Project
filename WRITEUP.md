@@ -2,6 +2,20 @@
 
 In this section, I document important detials regarding the model selection research, performance evaluation and how to deploy the 'app' including use cases and industries where applicable.
 
+## Explaining Custom Layers
+
+Custom layers are a neccessary and important feature to have in the OpneVINO ToolKkit, however it is not often used due to the fast coverage of the supported layers but it is useful to know about its existence and how to use it if the need arises. The list of supported layers is shown [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_Supported_Frameworks_Layers.html). Any layer not listed is classified as custom layer by the Model Optimizer. In order to add custom layers, there are a few differences depending on the original model framework. In both TensorFlow and Caffe models, the first option is to register the custom layers as extensions to the Model Optimizer.
+
+- For Caffe, the second option is to register the layers as Custom, then use Caffe to calculate the output shape of the layer. More information on how to do that [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_Customize_Model_Optimizer.html). You'll require Caffe installed on your system for this option.
+
+- For TensorFlow, the second option is to replace the unsupported subgraph with a different subgraph. More information [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_Customize_Model_Optimizer.html).
+This feature is helpful for many TensorFlow models and more information on how to do that [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_Subgraph_Replacement_Model_Optimizer.html). The final TensorFlow option is to actually offload the computation of the subgraph back to TensorFlow during inference. More information on offloading sugbraph inference to TensorFlow [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_customize_model_optimizer_Offloading_Sub_Graph_Inference.html). Checkout the developer documentation [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_customize_model_optimizer_Customize_Model_Optimizer.html) for more information on Custom Lyers in the Model Optimizer.
+
+
+The process behind converting custom layers involves...
+
+Some of the potential reasons for handling custom layers are...
+
 ## Model Selection
 
 This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [public_model_zoo](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project. I chose this model because it provided a good detection with regards to the number of person in the video frame per time, prediction accuracy and fast infereence time.
@@ -26,12 +40,6 @@ The folowing steps where taken to download the model from the public_model_zoo
 
 "python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json"
 
-
-## Explaining Custom Layers
-
-The process behind converting custom layers involves...
-
-Some of the potential reasons for handling custom layers are...
 
 ## Comparing Model Performance
 
