@@ -4,11 +4,13 @@
 |-----------------------|---------------|
 | Programming Language: |  Python 3.5 or 3.6 |
 
-![people-counter-python](./images/people-counter-image.png)
+![people-counter-python](./images/Screenshot_inf_72_78.png)
 
 ## What it Does
 
 The people counter application will demonstrate how to create a smart video IoT solution using Intel® hardware and software tools. The app will detect people in a designated area, providing the number of people in the frame, average duration of people in frame, and total count.
+
+![people-counter-python](./images/Screenshot_image.png)
 
 ## How it Works
 
