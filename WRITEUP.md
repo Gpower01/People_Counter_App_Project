@@ -6,6 +6,17 @@ In this section, I document important detials regarding the model selection rese
 
 This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_counter_app", the model selected should not have been converted Intermediate Representation (IR) format, so I seleted the model from [public_model_zoo](https://github.com/opencv/open_model_zoo/tree/master/models/public/) used for this project.
 
+- ssd_mobilenet_v2_coco
+
+SSD_MObilenet is a Single-Shot multibox Detection (SSD) network model used for object detection. The model input is a blob that consists of a single image of 1x3x300x300 in RGB format. This means that I have to process the model before delpoying the app. The original model input is in RGB format while converted model is in BGR format. The pre-process model also shows the number of detection boxes, channels, width and height (n, c, w, h) which is documented in the main.py.
+
+## Downloading and converting the model
+
+The folowing steps where taken to download and convert the model to Intermediate Representation (IR)
+
+
+
+
 ## Explaining Custom Layers
 
 The process behind converting custom layers involves...
