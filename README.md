@@ -24,7 +24,7 @@ You will choose a model to use and convert it with the Model Optimizer.
 
 ![architectural diagram](./images/arch_diagram.png)
 
-## Requirements
+## Requirements and Configuration
 
 ### Hardware
 
