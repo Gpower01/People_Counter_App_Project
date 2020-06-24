@@ -11,10 +11,30 @@ Custom layers are a neccessary and important feature to have in the OpneVINO Too
 - For TensorFlow, the second option is to replace the unsupported subgraph with a different subgraph. More information [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_Customize_Model_Optimizer.html).
 This feature is helpful for many TensorFlow models and more information on how to do that [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_Subgraph_Replacement_Model_Optimizer.html). The final TensorFlow option is to actually offload the computation of the subgraph back to TensorFlow during inference. More information on offloading sugbraph inference to TensorFlow [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_customize_model_optimizer_Offloading_Sub_Graph_Inference.html). Checkout the developer documentation [here](https://docs.openvinotoolkit.org/2019_R3/_docs_MO_DG_prepare_model_customize_model_optimizer_Customize_Model_Optimizer.html) for more information on Custom Lyers in the Model Optimizer.
 
+Potential reasons for handling custom layers may be that the IR does not support all of the layers from original framework. Sometimes because of the hardware, for example on CPU there are few IR model which are directly supported while others may not be supported.
 
-The process behind converting custom layers involves...
 
-Some of the potential reasons for handling custom layers are...
+## Converting a TensorFlow model to Intermediate Representation (IR)
+
+Before converting a model, you must configure the Model Optimizer for the framework that was used to train the moddel. You can learn more about how to configure the Model Optimizer [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_Config_Model_Optimizer.html). To converting a Model to Intermediate Representation (IR), use the the mo.py script from the <INSTALL_DIR>/deployement_tools/model_optimizer directory to run the Model Optimizer and convert the model to the Intermediate Representation (IR). 
+
+The mo.py is the universal entry point that can deduce the framework that has produced the input model by a standard extension of the model file. More information [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Converting_Model.html).
+
+- .caffemodel - Caffe models
+- .pb - TensorFlow models
+- .params - MXNet models
+- .onnx - ONNX models
+- .nnet - Kaldi models
+
+Converting TensorFlow Object Detection API Model, go to the <INSATLL_DIR>/deployment_tools/mode_optimizer directory and run the mo_tf.py script with the following required parameters:
+
+- --input_model <path_to_frozen.pb>
+
+- --transformations_config <path_to_subgraph_replacement_configuration_file.json> - A subgraph replacement configuration file with transformations description. For models downloaded from the TensorFlow Object Detection API zoo, the confiuguration file can be found in the <INSTALL_DIR>/deployment_tools/model_optimizer/extensions/front/tf directory. Use:
+
+- ssd_v2_support.json - for frozen SSD topologies from the model zoo
+
+More Details on Converting TensorFlow Object Detection API Models [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_tf_specific_Convert_Object_Detection_API_Models.html).
 
 ## Model Selection
 
@@ -24,7 +44,8 @@ This project utilised ssd_mobilenet_v2_coco_2018_03_29 to deploy the "People_cou
 
 SSD_MObilenet is a Single-Shot multibox Detection (SSD) network model used for object detection. The model input is a blob that consists of a single image of 1x3x300x300 in RGB format. This means that I have to process the model before delpoying the app. The original model input is in RGB format while converted model is in BGR format. The pre-process model also shows the number of detection boxes, channels, width and height (n, c, w, h) which is documented in the main.py.
 
-## Downloading the model
+
+## Downloading the model used for this project
 
 The folowing steps where taken to download the model from the public_model_zoo
 
@@ -39,6 +60,13 @@ The folowing steps where taken to download the model from the public_model_zoo
 2. Convert the model to IR using the following command argument:
 
 "python /opt/intel/openvino/deployment_tools/model_optimizer/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --tensorflow_use_custom_operations_config /opt/intel/openvino/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json"
+
+
+- Details of supported Frozen Topologies from TensorFlow Object Detection zoo including the SSD_MobileNet_v2_Coco is shown [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_convert_model_Convert_Model_From_TensorFlow.html) and the convertion parameters and steps for converting the model to IR is shown [here](https://docs.openvinotoolkit.org/latest/_docs_MO_DG_prepare_model_customize_model_optimizer_TensorFlow_SSD_ObjectDetection_API.html).
+
+
+## Runing the People_Counter_APP
+
 
 
 ## Comparing Model Performance
