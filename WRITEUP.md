@@ -49,7 +49,9 @@ SSD_MObilenet is a Single-Shot multibox Detection (SSD) network model used for o
 
 The folowing steps where taken to download the model from the public_model_zoo
 
-1. Download the model using the command: "wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
+1. Download the model using the command: 
+
+"wget http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
 
 2. Extract the tar file using: "tar -xvf ssd_mobilenet_v2_coco_2018_03_29.tar.gz"
 
@@ -67,52 +69,57 @@ The folowing steps where taken to download the model from the public_model_zoo
 
 ## Runing the People_Counter_APP
 
+To run the people_counter_app, the following command argument was used: 
+
+" python main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m ssd_mobilenet_v2_model/frozen_inference_graph.xml -l /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so -d CPU -pt 0.6 | ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm"
+
+- Note: that you must check the path for the fozen_inference_graph.xml which in this project was located in the ssd_mobilenet_ve_model/
+
+- Also you will need to open four terminals to run the people_counter_app. Please see the information on 'README' for further steps on running the application.
 
 
 ## Comparing Model Performance
 
+In order to evaluate the model performance, I compared the model size, prediction accuracy and inference time of the model before and after conversion.
+
 My method(s) to compare models before and after conversion to Intermediate Representations
-were...
+were:
 
-The difference between model accuracy pre- and post-conversion was...
 
-The size of the model pre- and post-conversion was...
+The size of the model pre- and post-conversion was:
 
-The inference time of the model pre- and post-conversion was...
+- Model: ssd_mobilenet_v2_coco_2018_03_29 size before: 180MB and after 65MB
+
+The inference time of the model pre- and post-conversion:
+
+- Inference time of the model ranges from 68ms - 74ms after conversion
+
 
 ## Assess Model Use Cases
 
-Some of the potential use cases of the people counter app are...
+The people_counter_app have an important application in many business sector where customer servivce is of great importance. The applicaton can help business owners to monitor their customer habit and use the generated statistics to make informed decision on how to better serve their customers.
 
-Each of these use cases would be useful because...
+Some of the potential use cases of the people counter app inlucde but limited to 
+
+1. Retail stores: where this can be deployed to monitor customers shopping habits and used to that optimised thair staffing needs to know when the busiest hours are and place more staff on shopping grounds. It can also be used to optimse merchandising. 
+
+2. Security Industry: It can be used to monitor trespassers from entering secured areas or premises 
+
+3. Hospital: To maintain the number of patient that can be allowed to enter a particular area, so that if the number is decreasing, they can be notified to call for more patient.
+
+4. Train Stations: For example the people_counter_app can be used to monitor the number of people in train stations if they are observing social distancing particulary during COVID-19 
+
 
 ## Assess Effects on End User Needs
 
 Lighting, model accuracy, and camera focal length/image size have different effects on a
-deployed edge model. The potential effects of each of these are as follows...
+deployed edge model.
 
-## Model Research
+Lighter, quicker models are helpful for the edge and certain optimizations like lower precision that help with these will also impact on accuracy. No amnount of post-processing and attempt to extract useful data from the output will make up for a poor model choice or one where too many sacrifices were made for speed and of course these choices are dependent on how much loss of accuracy is accepted. More information [here](https://docs.openvinotoolkit.org/2019_R3/_docs_IE_DG_Intro_to_Performance.html).
 
-[This heading is only required if a suitable model was not found after trying out at least three
-different models. However, you may also use this heading to detail how you converted 
-a successful model.]
+The consideration of speed, size and network impact are very important to deploy AI applications at the Edge. Faster models can help free up computation for other tasks, leading to less power usage which also can allow for cheaper hardware to be use.
 
-In investigating potential people counter models, I tried each of the following three models:
+SSD model used for this project was trianed for detecting object in images using a single deep neural network. It discretizes the output sapces of the bounding boxes into a set of default boxes over different aspect ratios and scales per feature map locationw which allows the model to generate scores for the presence of each object category in each default bounding boxes and produce adjustments to the box to better match the object shape.
 
-- Model 1: [Name]
-  - [Model Source]
-  - I converted the model to an Intermediate Representation with the following arguments...
-  - The model was insufficient for the app because...
-  - I tried to improve the model for the app by...
-  
-- Model 2: [Name]
-  - [Model Source]
-  - I converted the model to an Intermediate Representation with the following arguments...
-  - The model was insufficient for the app because...
-  - I tried to improve the model for the app by...
+The model also have features that allows it to combine predictions from multiple feature maps with different resolution to better handle objects of different sizes. These features makes the SSD model easy to train and integrate into a system that requires a detection component and provides better accuracy even with a smaller input image size. For 300 x 300 input (which is used in for this project), SSD can achieve 72.1%  accuracy and for 500 x 500 input, it can achieve up to 75.1% acuuracy. More information on SSD models can be found [here](https://arxiv.org/abs/1512.02325).
 
-- Model 3: [Name]
-  - [Model Source]
-  - I converted the model to an Intermediate Representation with the following arguments...
-  - The model was insufficient for the app because...
-  - I tried to improve the model for the app by...
