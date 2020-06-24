@@ -1,6 +1,8 @@
 # Project Write-Up
 
-In this section, I document important detials regarding the model selection research, performance evaluation and how to deploy the 'app' including use cases and industries where applicable.
+The people_counter_app is a smart video IoT digital solution application developed using Intel hardware and software tools specifically the Open Visual Inference and Neural Network Optimization. This application helps detect people in a certain area, provide the number of people in a video frame, average duration spent in the video frame and total count. This project have been developed as part of Intel Edge AI for IoT Developers Nanodegree programme by Udacity.
+
+Below, I document important detials regarding the model selection research, performance evaluation and how the application can be deploy including some use cases and industries where this application can be useful.
 
 ## Explaining Custom Layers
 
