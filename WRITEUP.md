@@ -111,6 +111,8 @@ Some of the potential use cases of the people counter app inlucde but limited to
 
 4. Train Stations: For example the people_counter_app can be used to monitor the number of people in train stations if they are observing social distancing particulary during COVID-19 
 
+5. In autiomated self-driving vehicles for example, it can be use to detect the presence of person on the road and even in many smart cars nowadays 360 cameras have been used to detect object including people which are helpful when reversing the car.
+
 
 ## Assess Effects on End User Needs
 
@@ -124,4 +126,16 @@ The consideration of speed, size and network impact are very important to deploy
 SSD model used for this project was trianed for detecting object in images using a single deep neural network. It discretizes the output sapces of the bounding boxes into a set of default boxes over different aspect ratios and scales per feature map locationw which allows the model to generate scores for the presence of each object category in each default bounding boxes and produce adjustments to the box to better match the object shape.
 
 The model also have features that allows it to combine predictions from multiple feature maps with different resolution to better handle objects of different sizes. These features makes the SSD model easy to train and integrate into a system that requires a detection component and provides better accuracy even with a smaller input image size. For 300 x 300 input (which is used in for this project), SSD can achieve 72.1%  accuracy and for 500 x 500 input, it can achieve up to 75.1% acuuracy. More information on SSD models can be found [here](https://arxiv.org/abs/1512.02325).
+
+## Answer to the reviewer's feedback
+
+### Discuss the effect of lighting to the end user rewuirements
+
+Object detection is now widely used in self-driving cars as an important software system to detect objects such as pedectrian, automobiles, traffic sign boards etc. In order to ensure the accuracy of these objects detection, the vehicles should have eyes which are not the real eyes but cameras. Detection of these objects is considered very important since it includes saftey of the public. Thefore the ability of these object detection application such the one demonstrated for this project to detect accurately the precise object will depend on a such factor as high-resolution camera with effective focal-length, high definition lighting effect for spotlight detection which allows the application to detect the object accurately as demonstrated by this [study](https://www.researchgate.net/publication/337527327_Traffic_Light_Detection_Using_Tensorflow_Object_Detection_Framework).  
+
+In another [study](https://www.researchgate.net/publication/327670109_Real-time_object_detection_system_for_building_energy_conservation_An_IP_camera_based_system) using Single Shot Detector (SSD) model for **REAL-TIME OBJECT DETECTION SYSTEM FOR BUILDING ENERGY CONSERVATION** where most of the developed building energy conservation systems are based on sensors. An application for object detection, object tracking and lighting control was deployed. This application enabled real-time object classification for human heads, lighted vehicles and non-lighted vehicles to be detected, therefore reducing the excessive energy consumed by air conditioning and lighting depending on the nature and movement of the objects. With use of this application, facility managers can make built environments much comfortable for occupants while reducing the excessive energy consumption by continuous lighting effect and human effort taken to manage the buildings.
+
+
+
+
 
