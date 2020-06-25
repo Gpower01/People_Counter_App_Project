@@ -127,9 +127,9 @@ SSD model used for this project was trianed for detecting object in images using
 
 The model also have features that allows it to combine predictions from multiple feature maps with different resolution to better handle objects of different sizes. These features makes the SSD model easy to train and integrate into a system that requires a detection component and provides better accuracy even with a smaller input image size. For 300 x 300 input (which is used in for this project), SSD can achieve 72.1%  accuracy and for 500 x 500 input, it can achieve up to 75.1% acuuracy. More information on SSD models can be found [here](https://arxiv.org/abs/1512.02325).
 
-## Answer to the reviewer's feedback
+## Answer to reviewer's feedback
 
-### Discuss the effect of lighting to the end user rewuirements
+### Discussing the effect of lighting to end user requirements
 
 Object detection is now widely used in self-driving cars as an important software system to detect objects such as pedectrian, automobiles, traffic sign boards etc. In order to ensure the accuracy of these objects detection, the vehicles should have eyes which are not the real eyes but cameras. Detection of these objects is considered very important since it includes saftey of the public. Thefore the ability of these object detection application such the one demonstrated for this project to detect accurately the precise object will depend on a such factor as high-resolution camera with effective focal-length, high definition lighting effect for spotlight detection which allows the application to detect the object accurately as demonstrated by this [study](https://www.researchgate.net/publication/337527327_Traffic_Light_Detection_Using_Tensorflow_Object_Detection_Framework).  
 
