@@ -139,5 +139,15 @@ In another [study](https://www.researchgate.net/publication/327670109_Real-time_
 
 
 
+## To Extract desired stats from the results in the video frame
+
+In this section I explain how I calculated the total count of persons detected in the video frame and the average duration they spent to avoid double counting. In the `main.py` I used the `if statement` and `int(time.time() - start_time) >=3` to adjust the duration of time each person spent in the video frame and ensure that the model does not count one person twice. To get the accurate duration I experiemented between 1 sec and 3.5 sec and discovered that the average duration lies between `int(time.time() - start_time) >= 3 and 3.5` below are examples of images inllustrating the actual `total_count` of persons detected in the video frame and `average_duration`
+
+![people-counter-python](./images/total_count_1.png)
+
+
+![people-counter-python](./images/total_count_2.png)
+
+
 
 
