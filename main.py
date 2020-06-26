@@ -1,3 +1,4 @@
+
 """People Counter."""
 """
  Copyright (c) 2018 Intel Corporation.
@@ -39,13 +40,6 @@ IPADDRESS = socket.gethostbyname(HOSTNAME)
 MQTT_HOST = IPADDRESS
 MQTT_PORT = 3001
 MQTT_KEEPALIVE_INTERVAL = 60
-
-
-## Setting Pro_threshold for person detection filtering
-try:
-    prob_threshold = float(os.environ['PROB_THRESHOLD'])
-except:
-    prob_threshold = 0.5
 
 
 def build_argparser():
@@ -92,7 +86,7 @@ def pre_process_image(frame, n, c, h, w):
     return image_p
 
 
-def draw_boxes(frame, result, width, height):
+def draw_boxes(frame, result, width, height, prob_threshold):
     """
     :Draws bounding box when person is detected on video frame 
     :and the probability is more than the specified threshold
@@ -207,7 +201,7 @@ def infer_on_stream(args, client):
                 perf_count = infer_network.performance_counter(present_request_id)
                 performance_counts(perf_count)
             
-            frame, present_count = draw_boxes(frame, result, width, height)
+            frame, present_count = draw_boxes(frame, result, width, height, prob_threshold)
             inf_time_message = "Status, Inference time: {:.3f}ms"\
                                 .format(det_time * 1000)
             cv2.putText(frame, inf_time_message, (15, 15),
@@ -224,6 +218,14 @@ def infer_on_stream(args, client):
             ### current_count, total_count and duration to the MQTT server ###
             ### Topic "person": keys of "count" and "total" ###
             ### Topic "person/duration": key of "duration" ###
+            ### When person is detected in the video
+            if present_count > last_count:
+                start_time = time.time()
+                total_count += present_count - last_count
+                client.publish("person",
+                              json.dumps({"total":total_count}))
+            
+            ## Calculating the duration a person spent on video
             if present_count < last_count:
                 duration = int(time.time() - start_time)
                 if duration > 0:
