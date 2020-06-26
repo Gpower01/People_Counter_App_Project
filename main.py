@@ -175,7 +175,7 @@ def infer_on_stream(args, client):
     
     # Define the codec and create VideoWriter object for the output video
     # 768x432 to match desired resizing
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    fourcc = cv2.VideoWriter_fourcc('M','J','P','G')
     out = cv2.VideoWriter('output.avi', fourcc, 24.0, (768,432))
 
     ### TODO: Loop until stream is over ###
@@ -226,7 +226,7 @@ def infer_on_stream(args, client):
                               json.dumps({"total":total_count}))
             
             ## Calculating the duration a person spent on video
-            if present_count < last_count:
+            if present_count < last_count and int(time.time() - start_time) >=3:
                 duration = int(time.time() - start_time)
                 if duration > 0:
                     # Publish messages to the MQTT server
@@ -253,6 +253,7 @@ def infer_on_stream(args, client):
     
     #out.release()
     cap.release()
+    out.release()
     cv2.destroyAllWindows()
     client.disconnect()
     infer_network.clean()
